@@ -81,6 +81,10 @@ export default class RememberMe {
 		// better than options.textTolerance we should
 		// use the ancestors chain to build a more
 		// specific selector
+		// TODO: if no matches are found with reasonably
+		// close text, try matching the selector without
+		// ID, tagname, or even class (may require using
+		// ancestors)
 		return null;
 	}
 
