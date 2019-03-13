@@ -10,7 +10,8 @@
 		"baseUrl": "./",
 		"paths": {
 			"@demo/*": [ "./demo/*" ],
-			"@src/*": [ "./src/*" ]
+			"@src/*": [ "./src/*" ],
+			"@utils/*": [ "./src/utils/*" ]
 		}
 	}
 }
