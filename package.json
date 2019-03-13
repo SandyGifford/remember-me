@@ -4,6 +4,9 @@
   "author": "Sanford Gifford",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "jest": "^24.5.0",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
@@ -14,6 +17,7 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
-    "demo": "webpack --watch"
+    "demo": "webpack --watch",
+    "test": "jest --watch"
   }
 }
