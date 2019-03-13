@@ -30,23 +30,10 @@ export default class RememberMe {
 	};
 
 	public static remember(element: HTMLElement, options: Partial<RememberOptions> = this.defaultRememberOptions): Memory {
-		const memories: Memory[] = DomUtils.mapAncestors(element, (ancestor, ancestorIndex) => {
-			const memory: Memory = {
-				tagName: ancestor.tagName,
-				siblingIndex: Array.from(ancestor.parentElement.children).indexOf(ancestor),
-				selectorIndex: null,
-			};
-
-			if (ancestor.className) memory.classList = Array.from(ancestor.classList);
-			if (ancestor.id) memory.id = ancestor.id;
-			if (options.recordAncestorText || ancestorIndex === 0) memory.text = ancestor.textContent;
-
-			const selector = MemoryUtils.createSelector(memory);
-			const selectorIndex = Array.from(document.querySelectorAll(selector)).indexOf(ancestor);
-			memory.selectorIndex = selectorIndex;
-
-			return memory;
-		});
+		const memories: Memory[] = DomUtils.mapAncestors(
+			element,
+			(ancestor, ancestorIndex) =>  MemoryUtils.makeFlatMemory(ancestor, options.recordAncestorText || ancestorIndex === 0)
+		);
 
 		const baseMemory = memories[0];
 
