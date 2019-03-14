@@ -1,24 +1,5 @@
-import DomUtils from "@utils/DomUtils";
-import MemoryUtils from "@utils/MemoryUtils";
+import MemoryUtils, { RecallOptions, RememberOptions, Memory } from "@utils/MemoryUtils";
 import DiffUtils from "@utils/DiffUtils";
-
-export interface Memory {
-	parent?: Memory;
-	tagName: string;
-	siblingIndex: number;
-	selectorIndex: number;
-	classList?: string[];
-	id?: string;
-	text?: string;
-}
-
-export interface RecallOptions {
-	textTolerance: number;
-}
-
-export interface RememberOptions {
-	recordAncestorText: boolean;
-}
 
 export default class RememberMe {
 	private static readonly defaultRecallOptions: RecallOptions = {
@@ -30,18 +11,7 @@ export default class RememberMe {
 	};
 
 	public static remember(element: HTMLElement, options: Partial<RememberOptions> = this.defaultRememberOptions): Memory {
-		const memories: Memory[] = DomUtils.mapAncestors(
-			element,
-			(ancestor, ancestorIndex) =>  MemoryUtils.makeFlatMemory(ancestor, options.recordAncestorText || ancestorIndex === 0)
-		);
-
-		const baseMemory = memories[0];
-
-		memories.forEach((memory, index) => {
-			if (memories[index + 1]) memory.parent = memories[index + 1];
-		});
-
-		return baseMemory;
+		return MemoryUtils.makeMemory(element, options);
 	}
 
 	public static recall(memory: Memory, options: Partial<RecallOptions> = this.defaultRecallOptions): HTMLElement {
