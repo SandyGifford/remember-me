@@ -11,9 +11,16 @@ describe("DiffUtils", () => {
 		});
 
 		test("Totally different", () => {
-			expect(DiffUtils.diffFrac("hello", "world")).toBe(2);
-			// TODO: I'm not exactly sure what percent different this should be
-			expect(DiffUtils.diffFrac("fool", "foo")).toBe(1.75);
+			expect(DiffUtils.diffFrac("abc", "def")).toBe(1);
+			expect(DiffUtils.diffFrac("foo", "")).toBe(1);
+			expect(DiffUtils.diffFrac("", "bar")).toBe(1);
+			expect(DiffUtils.diffFrac("what's", "up")).toBe(1);
+		});
+
+		test("In between", () => {
+			expect(DiffUtils.diffFrac("hello", "world")).toBe(0.8);
+			expect(DiffUtils.diffFrac("fool", "foo")).toBe(0.25);
+			expect(DiffUtils.diffFrac("foo", "fool")).toBe(0.25);
 		});
 
 		test("Errors", () => {
